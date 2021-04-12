@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cursoudemy.springboot.entidades.enums.OrdemStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
@@ -30,14 +31,17 @@ public class Ordem implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 	
+	private Integer ordemStatus;
+	
 	public Ordem() {
 		
 	}
 
-	public Ordem(Long id_ordem, Instant momento, Usuario cliente) {
+	public Ordem(Long id_ordem, Instant momento, OrdemStatus ordemStatus, Usuario cliente) {
 		super();
 		this.id_ordem = id_ordem;
 		this.momento = momento;
+		setOrdemStatus(ordemStatus);
 		this.cliente = cliente;
 	}
 
@@ -55,6 +59,14 @@ public class Ordem implements Serializable{
 
 	public void setMomento(Instant momento) {
 		this.momento = momento;
+	}
+
+	public OrdemStatus getOrdemStatus() {
+		return OrdemStatus.valueOf(ordemStatus);
+	}
+
+	public void setOrdemStatus(OrdemStatus ordemStatus) {
+		this.ordemStatus = ordemStatus.getCodigo();
 	}
 
 	public Usuario getCliente() {
